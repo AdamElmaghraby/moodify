@@ -1,7 +1,8 @@
-package main
+package config
 
 import (
 	"log"
+	"os"
 
 	"github.com/joho/godotenv"
 )
@@ -13,5 +14,8 @@ func LoadEnv() {
 	} else {
 		log.Println(".env file found successfully.")
 	}
+
+	log.Println("Spotify Client ID:", os.Getenv("SPOTIFY_CLIENT_ID"))
+
 }
 
