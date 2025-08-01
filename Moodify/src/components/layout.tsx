@@ -5,12 +5,12 @@ import Footer from "./footer";
 
 export default function Layout() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen overflow-hidden">
       {/* fixed header—add enough top padding on main so content isn't hidden */}
       <Header />
 
       {/* this grows to fill the space between header & footer */}
-      <main className="flex-grow pt-20">
+      <main className="flex-grow pt-20 h-[calc(100vh-5rem-2rem)]">
         <Outlet />
       </main>
 

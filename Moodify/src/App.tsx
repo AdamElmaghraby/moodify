@@ -1,23 +1,24 @@
 // src/App.tsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/contexts/auth-context";
 import Layout from "./components/layout";
 import Landing from "./components/landing";
+import ChatPage from "./components/chat-page";
 // import Generator from "./components/generator"; // when you add more routes
 
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Routes>
-          {/* everything under Layout */}
-          <Route path="/" element={<Layout />}>
-            {/* index page */}
-            <Route index element={<Landing />} />
-            {/* future pages: */}
-            {/* <Route path="chat" element={<Generator />} /> */}
-          </Route>
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Landing />} />
+              <Route path="/chat" element={<ChatPage />} />
+            </Route>
+          </Routes>
+        </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

@@ -6,5 +6,6 @@ import (
 
 func RegisterRoutes(app *fiber.App) {
 	RegisterAuthRoutes(app)
-	
+	RegisterPromptRoutes(app)
+	RegisterPlaylisthRoutes(app)
 }

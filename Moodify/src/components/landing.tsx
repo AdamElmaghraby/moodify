@@ -3,11 +3,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { ShimmerButton } from "./magicui/shimmer-button";
 import Background from "./background";
+import Header from "./header";
+import { useState } from "react";
+import { useAuth } from "@/contexts/auth-context";
+import { BackgroundBeams } from "./ui/background-beams";
 
 const Landing = () => {
+  const [paused, setPaused] = useState(false);
+  const { user, login } = useAuth();
+  const togglePaused = () => setPaused((p) => !p);
+
+  const handleButtonClick = () => {
+    if (user) {
+      // User is logged in, navigate to main app or chat page
+      window.location.href = "/chat";
+    } else {
+      // User is not logged in, trigger login
+      login();
+    }
+  };
+
   return (
     <div>
-      <Background/>
+      <BackgroundBeams />
+      <Header />
       <div className="fixed inset-0 flex flex-col items-center justify-center gap-5">
         <BlurFade direction="up" duration={0.6} delay={0.25} inView>
           <h3
@@ -32,18 +51,29 @@ const Landing = () => {
           </Button>
         </BlurFade>
         */}
-        
+
         <BlurFade direction="up" duration={0.6} delay={0.95} inView>
-            <ShimmerButton
+          <ShimmerButton
             className="shadow-4xl bg-transparent border border-gray-300"
             shimmerColor="#1ED760"
             shimmerSize=".15em"
             borderRadius="50px"
-            >
-            <FontAwesomeIcon icon={faSpotify} color="white" />
-            <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
-              {"    "}Login with Spotify
-            </span>
+            onClick={handleButtonClick}
+          >
+            {user ? (
+              <>
+                <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+                  Get Started
+                </span>
+              </>
+            ) : (
+              <>
+                <FontAwesomeIcon icon={faSpotify} color="white" />
+                <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+                  {"    "}Login with Spotify
+                </span>
+              </>
+            )}
           </ShimmerButton>
         </BlurFade>
       </div>

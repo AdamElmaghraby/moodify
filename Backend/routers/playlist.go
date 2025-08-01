@@ -1,15 +1,17 @@
 package routers
 
 import (
+	"net/http"
+
+	"github.com/AdamElmaghraby/moodify/handlers"
+	"github.com/gofiber/adaptor/v2"
 	"github.com/gofiber/fiber/v2"
 )
 
 
 func RegisterPlaylisthRoutes(app *fiber.App) {
 
-	// Will send user to spotify login page 
-	//app.Get("/api/generate-playlist", handlers.HandleSpotifyLogin)
+	
+	app.Post("/api/create-playlist", adaptor.HTTPHandler(handlers.JWTAuthMiddleware(http.HandlerFunc(handlers.HandleCreatePlaylist))))
 
-	// Will callback to app from spotify
-	//app.Get("/auth/callback", handlers.HandleSpotifyCallback)
 }
