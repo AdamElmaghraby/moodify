@@ -211,6 +211,7 @@ const ChatPage = () => {
                 <ShiningText
                   text="Generating Playlist..."
                   className="text-4xl font-mono "
+                  tag="span"
                 />
               ) : (
                 `Hello, ${user.username}!`
