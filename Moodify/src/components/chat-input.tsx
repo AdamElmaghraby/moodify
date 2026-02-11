@@ -5,14 +5,7 @@ import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import {
-  ImageIcon,
-  FileUp,
-  Figma,
-  MonitorIcon,
-  CircleUserRound,
   ArrowUpIcon,
-  Paperclip,
-  PlusIcon,
   CloudRain,
   Book,
   Dumbbell,
@@ -55,12 +48,12 @@ function useAutoResizeTextarea({
       // Calculate new height
       const newHeight = Math.max(
         minHeight,
-        Math.min(textarea.scrollHeight, maxHeight ?? Number.POSITIVE_INFINITY)
+        Math.min(textarea.scrollHeight, maxHeight ?? Number.POSITIVE_INFINITY),
       );
 
       textarea.style.height = `${newHeight}px`;
     },
-    [minHeight, maxHeight]
+    [minHeight, maxHeight],
   );
 
   useEffect(() => {
@@ -166,7 +159,7 @@ export function VercelV0Chat({
                 "focus-visible:ring-0 focus-visible:ring-offset-0",
                 "placeholder:text-neutral-500 placeholder:text-sm",
                 "min-h-[60px]",
-                disabled && "opacity-50 cursor-not-allowed"
+                disabled && "opacity-50 cursor-not-allowed",
               )}
               style={{
                 overflow: "hidden",
@@ -200,7 +193,7 @@ export function VercelV0Chat({
                 <ArrowUpIcon
                   className={cn(
                     "w-4 h-4",
-                    value.trim() ? "text-black" : "text-zinc-400"
+                    value.trim() ? "text-black" : "text-zinc-400",
                   )}
                 />
                 <span className="sr-only">Send</span>

@@ -1,0 +1,28 @@
+# Git
+.git
+.gitignore
+
+# Environment files
+.env
+.env.*
+
+# Frontend (not needed in backend container)
+Moodify/node_modules
+Moodify/dist
+Moodify/.vite
+
+# IDE
+.vscode
+.idea
+
+# OS files
+.DS_Store
+*.swp
+*.swo
+
+# Documentation
+README.md
+LICENSE
+
+# Fly.io
+fly.toml

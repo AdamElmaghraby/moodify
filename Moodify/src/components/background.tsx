@@ -1,9 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
-
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
 
 interface BackgroundProps {
   paused: boolean;
@@ -11,15 +7,7 @@ interface BackgroundProps {
 
 export default function Background({ paused }: BackgroundProps) {
   // this is what drives your shader
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  // targets from mouse, and current interpolated value
-  const target = useRef({ x: 0, y: 0 });
-  const current = useRef({ x: 0, y: 0 });
-
-  // refs for our loop
-  const animationFrameId = useRef<number | null>(null);
-  const lastUpdateTime = useRef<number>(0);
+  const [position] = useState({ x: 0, y: 0 });
 
   // Remove the animationFrame loop logic, only update position on mouse move
   // useEffect(() => {

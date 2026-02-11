@@ -9,9 +9,7 @@ import { useAuth } from "@/contexts/auth-context";
 import { BackgroundBeams } from "./ui/background-beams";
 
 const Landing = () => {
-  const [paused, setPaused] = useState(false);
   const { user, login } = useAuth();
-  const togglePaused = () => setPaused((p) => !p);
 
   const handleButtonClick = () => {
     if (user) {

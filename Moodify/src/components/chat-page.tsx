@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { MdSend } from "react-icons/md";
-import clsx from "clsx";
-import { useRef } from "react";
-import { useAutosizeTextArea } from "@/hooks/use-autosize-textarea";
 import { VercelV0Chat } from "@/components/chat-input";
-import ChatBackground from "@/components/chat-background";
 import { BackgroundBeams } from "./ui/background-beams";
 import {
   Dialog,
@@ -14,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { ShiningText } from "@/components/ui/shimmer-text";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
@@ -38,14 +33,6 @@ interface PlaylistResponse {
   description?: string;
 }
 
-const promptSuggestions = [
-  "Make me a playlist for a rainy day",
-  "Give me songs to focus and study",
-  "Suggest upbeat tracks for a workout",
-  "Chill tracks for a late night drive",
-  "Songs to boost my mood",
-];
-
 const ChatPage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -57,7 +44,7 @@ const ChatPage = () => {
   const [requestError, setRequestError] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [parsedPlaylist, setParsedPlaylist] = useState<PlaylistResponse | null>(
-    null
+    null,
   );
   const [isCreatingPlaylist, setIsCreatingPlaylist] = useState(false);
   const [playlistCreationError, setPlaylistCreationError] = useState<
@@ -96,10 +83,6 @@ const ChatPage = () => {
     };
     fetchUser();
   }, []);
-
-  const handleSuggestionClick = (suggestion: string) => {
-    setPrompt(suggestion);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -173,7 +156,7 @@ const ChatPage = () => {
       if (!res.ok) {
         const errorText = await res.text();
         throw new Error(
-          `Failed to create playlist: ${res.status} - ${errorText}`
+          `Failed to create playlist: ${res.status} - ${errorText}`,
         );
       }
 
