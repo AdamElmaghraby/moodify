@@ -49,7 +49,10 @@ const Header = () => {
                       </span>
                     </div>
                     {/* Logout icon on the right */}
-                    <FontAwesomeIcon icon={faSignOutAlt} className="text-lg" />
+                    <FontAwesomeIcon
+                      icon={faSignOutAlt as any}
+                      className="text-lg"
+                    />
                   </Button>
                 </div>
               ) : (

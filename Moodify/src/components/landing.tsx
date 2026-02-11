@@ -4,7 +4,6 @@ import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { ShimmerButton } from "./magicui/shimmer-button";
 // import Background from "./background";
 import Header from "./header";
-import { useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
 import { BackgroundBeams } from "./ui/background-beams";
 
