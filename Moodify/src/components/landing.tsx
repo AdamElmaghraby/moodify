@@ -2,7 +2,7 @@ import { BlurFade } from "@/components/magicui/blur-fade";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { ShimmerButton } from "./magicui/shimmer-button";
-import Background from "./background";
+// import Background from "./background";
 import Header from "./header";
 import { useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
@@ -26,6 +26,7 @@ const Landing = () => {
   return (
     <div>
       <BackgroundBeams />
+      {/* <Background paused={paused} /> */}
       <Header />
       <div className="fixed inset-0 flex flex-col items-center justify-center gap-5">
         <BlurFade direction="up" duration={0.6} delay={0.25} inView>
