@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { VercelV0Chat } from "@/components/chat-input";
 import { BackgroundBeams } from "./ui/background-beams";
-import { getTokenFromURL, removeTokenFromURL, setAuthToken } from "@/lib/auth-utils";
+import {
+  getTokenFromURL,
+  removeTokenFromURL,
+  setAuthToken,
+  getAuthHeaders,
+} from "@/lib/auth-utils";
 import {
   Dialog,
   DialogContent,
@@ -64,12 +69,16 @@ const ChatPage = () => {
       setAuthToken(urlToken);
       removeTokenFromURL();
     }
-    
+
     const fetchUser = async () => {
       try {
-        const response = await fetch("https://moodify-empty-haze-7958.fly.dev/api/me", {
-          credentials: "include",
-        });
+        const response = await fetch(
+          "https://moodify-empty-haze-7958.fly.dev/api/me",
+          {
+            credentials: "include",
+            headers: getAuthHeaders(),
+          },
+        );
         const contentType = response.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {
           throw new Error("Did not receive user info (invalid content type)");
@@ -99,12 +108,18 @@ const ChatPage = () => {
     setResponse(null);
     setRequestError(null);
     try {
-      const res = await fetch("https://moodify-empty-haze-7958.fly.dev/api/generate-playlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ prompt, length: Number(numTracks) }),
-      });
+      const res = await fetch(
+        "https://moodify-empty-haze-7958.fly.dev/api/generate-playlist",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeaders(),
+          },
+          credentials: "include",
+          body: JSON.stringify({ prompt, length: Number(numTracks) }),
+        },
+      );
       if (!res.ok) throw new Error("Request failed");
       const text = await res.text();
       setResponse(text);
@@ -154,12 +169,18 @@ const ChatPage = () => {
         })),
       };
 
-      const res = await fetch("https://moodify-empty-haze-7958.fly.dev/api/create-playlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(playlistData),
-      });
+      const res = await fetch(
+        "https://moodify-empty-haze-7958.fly.dev/api/create-playlist",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeaders(),
+          },
+          credentials: "include",
+          body: JSON.stringify(playlistData),
+        },
+      );
 
       if (!res.ok) {
         const errorText = await res.text();

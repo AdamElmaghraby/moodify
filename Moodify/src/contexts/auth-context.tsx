@@ -5,7 +5,7 @@ import React, {
   useEffect,
   type ReactNode,
 } from "react";
-import { removeAuthToken } from "@/lib/auth-utils";
+import { removeAuthToken, getAuthHeaders } from "@/lib/auth-utils";
 
 interface User {
   username: string;
@@ -44,6 +44,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         "https://moodify-empty-haze-7958.fly.dev/api/me",
         {
           credentials: "include",
+          headers: getAuthHeaders(),
         },
       );
 
@@ -74,6 +75,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         "https://moodify-empty-haze-7958.fly.dev/auth/logout",
         {
           method: "POST",
+          headers: getAuthHeaders(),
           credentials: "include",
         },
       );

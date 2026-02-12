@@ -1,6 +1,6 @@
 // Token management utilities
 
-const TOKEN_KEY = 'auth_token';
+const TOKEN_KEY = "auth_token";
 
 export const setAuthToken = (token: string) => {
   localStorage.setItem(TOKEN_KEY, token);
@@ -14,16 +14,26 @@ export const getAuthToken = (): string | null => {
 
 export const removeAuthToken = () => {
   localStorage.removeItem(TOKEN_KEY);
-  document.cookie = 'token=; path=/; max-age=0';
+  document.cookie = "token=; path=/; max-age=0";
 };
 
 export const getTokenFromURL = (): string | null => {
   const params = new URLSearchParams(window.location.search);
-  return params.get('token');
+  return params.get("token");
 };
 
 export const removeTokenFromURL = () => {
   const url = new URL(window.location.href);
-  url.searchParams.delete('token');
-  window.history.replaceState({}, '', url.toString());
+  url.searchParams.delete("token");
+  window.history.replaceState({}, "", url.toString());
+};
+
+export const getAuthHeaders = (): HeadersInit => {
+  const token = getAuthToken();
+  if (token) {
+    return {
+      Authorization: `Bearer ${token}`,
+    };
+  }
+  return {};
 };

@@ -167,20 +167,29 @@ func getSpotifyUserInfo(client *http.Client) (SpotifyUser, error) {
 // Middleware to validate JWT token
 func JWTAuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		cookie, err := r.Cookie("token")
-		if err != nil {
-			w.Header().Set("Content-Type", "application/json")
-			if err == http.ErrNoCookie {
-				w.WriteHeader(http.StatusUnauthorized)
-				json.NewEncoder(w).Encode(map[string]string{"error": "Unauthorized"})
+		var tokenStr string
+		
+		// Try to get token from Authorization header first
+		authHeader := r.Header.Get("Authorization")
+		if authHeader != "" && len(authHeader) > 7 && authHeader[:7] == "Bearer " {
+			tokenStr = authHeader[7:]
+		} else {
+			// Fallback to cookie for backwards compatibility
+			cookie, err := r.Cookie("token")
+			if err != nil {
+				w.Header().Set("Content-Type", "application/json")
+				if err == http.ErrNoCookie {
+					w.WriteHeader(http.StatusUnauthorized)
+					json.NewEncoder(w).Encode(map[string]string{"error": "Unauthorized"})
+					return
+				}
+				w.WriteHeader(http.StatusBadRequest)
+				json.NewEncoder(w).Encode(map[string]string{"error": "Bad request"})
 				return
 			}
-			w.WriteHeader(http.StatusBadRequest)
-			json.NewEncoder(w).Encode(map[string]string{"error": "Bad request"})
-			return
+			tokenStr = cookie.Value
 		}
 
-		tokenStr := cookie.Value
 		claims := &Claims{}
 
 		token, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {
