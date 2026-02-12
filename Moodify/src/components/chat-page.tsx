@@ -59,7 +59,7 @@ const ChatPage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("https://127.0.0.1:3000/api/me", {
+        const response = await fetch("https://moodify-empty-haze-7958.fly.dev/api/me", {
           credentials: "include",
         });
         const contentType = response.headers.get("content-type");
@@ -91,7 +91,7 @@ const ChatPage = () => {
     setResponse(null);
     setRequestError(null);
     try {
-      const res = await fetch("https://127.0.0.1:3000/api/generate-playlist", {
+      const res = await fetch("https://moodify-empty-haze-7958.fly.dev/api/generate-playlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -146,7 +146,7 @@ const ChatPage = () => {
         })),
       };
 
-      const res = await fetch("https://127.0.0.1:3000/api/create-playlist", {
+      const res = await fetch("https://moodify-empty-haze-7958.fly.dev/api/create-playlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

@@ -1,13 +1,12 @@
-# fly.toml app configuration file
+# fly.toml app configuration file generated for moodify-empty-haze-7958 on 2026-02-12T10:57:30-06:00
+#
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-app = ''  # Will be set when you run: fly launch
-primary_region = 'iad'  # Change to your preferred region
+app = 'moodify-empty-haze-7958'
+primary_region = 'iad'
 
 [build]
-
-[env]
-  # PORT is automatically set by Fly.io - don't override it
 
 [http_service]
   internal_port = 8080
@@ -22,9 +21,9 @@ primary_region = 'iad'  # Change to your preferred region
     timeout = '10s'
     grace_period = '30s'
     method = 'GET'
-    path = '/health'  # You may want to add a health check endpoint
+    path = '/health'
 
 [[vm]]
   memory = '256mb'
-  cpu_kind = 'shared'
   cpus = 1
+  memory_mb = 256

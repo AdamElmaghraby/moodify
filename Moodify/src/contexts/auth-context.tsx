@@ -39,9 +39,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch("https://127.0.0.1:3000/api/me", {
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://moodify-empty-haze-7958.fly.dev/api/me",
+        {
+          credentials: "include",
+        },
+      );
 
       if (response.ok) {
         const userData = await response.json();
@@ -61,15 +64,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const login = () => {
-    window.location.href = "https://127.0.0.1:3000/auth/login";
+    window.location.href = "https://moodify-empty-haze-7958.fly.dev/auth/login";
   };
 
   const logout = async () => {
     try {
-      const response = await fetch("https://127.0.0.1:3000/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://moodify-empty-haze-7958.fly.dev/auth/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        },
+      );
 
       if (!response.ok) {
         console.error("Logout failed:", response.statusText);
