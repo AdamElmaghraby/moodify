@@ -126,7 +126,10 @@ func (o *OAuthService) HandleCallback(w http.ResponseWriter, r *http.Request) {
 	if frontendURL == "" {
 		frontendURL = "http://localhost:5173"
 	}
-	http.Redirect(w, r, frontendURL+"/chat", http.StatusTemporaryRedirect)
+	
+	// Pass token as URL parameter for cross-domain compatibility
+	redirectURL := fmt.Sprintf("%s/chat?token=%s", frontendURL, tokenString)
+	http.Redirect(w, r, redirectURL, http.StatusTemporaryRedirect)
 }
 
 type SpotifyUser struct {

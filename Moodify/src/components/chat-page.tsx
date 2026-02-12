@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { VercelV0Chat } from "@/components/chat-input";
 import { BackgroundBeams } from "./ui/background-beams";
+import { getTokenFromURL, removeTokenFromURL, setAuthToken } from "@/lib/auth-utils";
 import {
   Dialog,
   DialogContent,
@@ -57,6 +58,13 @@ const ChatPage = () => {
   } | null>(null);
 
   useEffect(() => {
+    // Check if token is in URL (from OAuth redirect)
+    const urlToken = getTokenFromURL();
+    if (urlToken) {
+      setAuthToken(urlToken);
+      removeTokenFromURL();
+    }
+    
     const fetchUser = async () => {
       try {
         const response = await fetch("https://moodify-empty-haze-7958.fly.dev/api/me", {

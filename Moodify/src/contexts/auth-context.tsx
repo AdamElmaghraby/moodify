@@ -5,6 +5,7 @@ import React, {
   useEffect,
   type ReactNode,
 } from "react";
+import { removeAuthToken } from "@/lib/auth-utils";
 
 interface User {
   username: string;
@@ -84,6 +85,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error("Logout failed:", error);
     } finally {
       setUser(null);
+      removeAuthToken();
     }
   };
 
