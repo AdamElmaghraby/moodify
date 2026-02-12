@@ -121,8 +121,12 @@ func (o *OAuthService) HandleCallback(w http.ResponseWriter, r *http.Request) {
 		Path: "/",
 	})
 
-	// Redirect to frontend with a query parameter indicating login success
-	http.Redirect(w, r, "http://localhost:5173/chat", http.StatusTemporaryRedirect)
+	// Redirect to frontend - use env variable or default to localhost for dev
+	frontendURL := os.Getenv("FRONTEND_URL")
+	if frontendURL == "" {
+		frontendURL = "http://localhost:5173"
+	}
+	http.Redirect(w, r, frontendURL+"/chat", http.StatusTemporaryRedirect)
 }
 
 type SpotifyUser struct {
